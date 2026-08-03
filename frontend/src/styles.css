@@ -1,0 +1,23 @@
+/* Trailwise / Trekking Management System - minimal brand overrides on top of stock Bootstrap.
+   Everything else (cards, buttons, badges, tables, forms) should just use
+   Bootstrap's own classes directly in the templates - no custom pt-* classes needed. */
+
+:root {
+    --bs-success: #16a34a;
+    --bs-success-rgb: 22, 163, 74;
+}
+
+body {
+    background-color: #f4f9f5;
+}
+
+/* Optional: keep a hint of the old gradient on primary buttons only,
+   instead of maintaining a full custom theme. Safe to delete this block
+   entirely if you're happy with flat Bootstrap green. */
+.btn-success {
+    background: linear-gradient(90deg, #15803d, #22c55e);
+    border: none;
+}
+.btn-success:hover {
+    filter: brightness(1.05);
+}
