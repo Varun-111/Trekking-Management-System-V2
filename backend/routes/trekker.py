@@ -139,8 +139,8 @@ def update_profile():
     if new_phone and not is_valid_phone(new_phone):
         return jsonify({"error": "Phone number must be exactly 10 digits."}), 400
 
-    me.name = (data.get("name") or me.name).strip()
+    me.username = (data.get("username") or me.username).strip()
     me.phone = new_phone
-    session["name"] = me.name
+    session["username"] = me.username
     db.session.commit()
     return jsonify(me.to_dict())

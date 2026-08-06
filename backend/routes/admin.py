@@ -53,7 +53,7 @@ def list_treks():
 @require_role("Admin")
 def add_trek():
     data = request.get_json() or {}
-    name = (data.get("name") or "").strip()
+    username = (data.get("username") or "").strip()
     place = (data.get("place") or "").strip()
     level = data.get("level")
     days = int(data.get("days") or 1)
@@ -178,8 +178,8 @@ def list_staff():
     blocked_q = User.query.filter_by(role="Trek Staff", blocked=True)
     if q:
         like = f"%{q}%"
-        active_q = active_q.filter(db.or_(User.name.ilike(like), User.email.ilike(like)))
-        blocked_q = blocked_q.filter(db.or_(User.name.ilike(like), User.email.ilike(like)))
+        active_q = active_q.filter(db.or_(User.username.ilike(like), User.email.ilike(like)))
+        blocked_q = blocked_q.filter(db.or_(User.username.ilike(like), User.email.ilike(like)))
 
     return jsonify({
         "active": [u.to_dict() for u in active_q.all()],
@@ -193,12 +193,12 @@ def add_staff():
     """Trek Staff accounts only get created here by the Admin, so every one
     is auto-approved the moment it's created - there's no sign-up flow."""
     data = request.get_json() or {}
-    name = (data.get("name") or "").strip()
+    username = (data.get("username") or "").strip()
     email = (data.get("email") or "").strip().lower()
     phone = (data.get("phone") or "").strip()
     pwd = data.get("password") or ""
 
-    if not (name and email and pwd and phone):
+    if not (username and email and pwd and phone):
         return jsonify({"error": "Please fill all fields."}), 400
     if not is_valid_phone(phone):
         return jsonify({"error": "Phone number must be exactly 10 digits."}), 400
@@ -207,7 +207,7 @@ def add_staff():
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered."}), 400
 
-    staff = User(name=name, email=email, phone=phone, role="Trek Staff", approved=True, blocked=False)
+    staff = User(username=username, email=email, phone=phone, role="Trek Staff", approved=True, blocked=False)
     staff.set_password(pwd)
     db.session.add(staff)
     db.session.commit()
@@ -240,7 +240,7 @@ def list_users():
 
     trekkers = User.query.filter_by(role="Trekker")
     if q:
-        trekkers = trekkers.filter(User.name.ilike(f"%{q}%"))
+        trekkers = trekkers.filter(User.username.ilike(f"%{q}%"))
     trekkers = trekkers.order_by(User.id.desc())
 
     page_items, total_pages = paginate_query(trekkers, page)

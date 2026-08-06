@@ -36,7 +36,7 @@ onMounted(load)
             <i class="bi bi-compass text-success fs-5"></i>
           </div>
           <div>
-            <h2 class="h4 mb-0">Welcome back, <span class="text-success">{{ store.user?.name }}</span></h2>
+            <h2 class="h4 mb-0">Welcome back, <span class="text-success">{{ store.user?.username }}</span></h2>
             <p class="text-muted mb-0">Here are the treks assigned to you.</p>
           </div>
         </div>

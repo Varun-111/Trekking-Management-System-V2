@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { api } from '../api.js'
 
 const router = useRouter()
-const name = ref('')
+const username = ref('')
 const email = ref('')
 const phone = ref('')
 const password = ref('')
@@ -16,7 +16,7 @@ async function submit() {
     error.value = ''
     success.value = ''
 
-    if (!name.value.trim() || !email.value.trim() || !phone.value.trim() || !password.value || !confirm.value) {
+    if (!username.value.trim() || !email.value.trim() || !phone.value.trim() || !password.value || !confirm.value) {
         alert('Please fill all fields.')
         return
     }
@@ -37,7 +37,7 @@ async function submit() {
         // Only Trekkers can self-register. Trek Staff accounts are created
         // by the Admin from the admin panel - there is no staff sign-up here.
         const { message } = await api.register({
-            name: name.value, email: email.value, phone: phone.value,
+            username: username.value, email: email.value, phone: phone.value,
             password: password.value, confirm: confirm.value,
         })
         success.value = message
@@ -69,7 +69,7 @@ async function submit() {
         <form @submit.prevent="submit">
           <div class="mb-3">
             <label class="form-label">Full Name</label>
-            <input v-model="name" class="form-control" required>
+            <input v-model="username" class="form-control" required>
           </div>
 
           <div class="mb-3">

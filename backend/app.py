@@ -29,7 +29,7 @@ def create_app():
         # there is no admin sign-up route anywhere in the app.
         admin_exists = User.query.filter_by(role="Admin").first() is not None
         if not admin_exists:
-            admin = User(name="Admin", email=Config.ADMIN_LOGIN_EMAIL, role="Admin", approved=True)
+            admin = User(username="Admin", email=Config.ADMIN_LOGIN_EMAIL, role="Admin", approved=True)
             admin.set_password(Config.ADMIN_LOGIN_PASSWORD)
             db.session.add(admin)
             db.session.commit()

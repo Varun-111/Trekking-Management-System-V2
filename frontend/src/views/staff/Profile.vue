@@ -14,8 +14,8 @@ async function load() {
 }
 
 async function save() {
-    if (!me.value.name.trim()) {
-        alert('Name cannot be empty.')
+    if (!me.value.username.trim()) {
+        alert('Username cannot be empty.')
         return
     }
     if (me.value.phone && !/^[0-9]{10}$/.test(me.value.phone.trim())) {
@@ -24,7 +24,7 @@ async function save() {
     }
     try {
         await api.staffUpdateProfile({
-            name: me.value.name, phone: me.value.phone,
+            username: me.value.username, phone: me.value.phone,
             designation: profile.value.designation, experience_years: profile.value.experience_years, bio: profile.value.bio,
         })
         saved.value = true
@@ -47,8 +47,8 @@ onMounted(load)
           <div class="alert alert-success py-2" v-if="saved">Profile updated!</div>
 
           <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input v-model="me.name" class="form-control">
+            <label class="form-label">Username</label>
+            <input v-model="me.username" class="form-control">
           </div>
           <div class="mb-3">
             <label class="form-label">Email</label>

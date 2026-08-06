@@ -12,13 +12,13 @@ def register():
     """Only Trekkers can self-register; Trek Staff accounts are created by
     the Admin only - see /api/admin/staff."""
     data = request.get_json() or {}
-    name = (data.get("name") or "").strip()
+    username = (data.get("username") or "").strip()
     email = (data.get("email") or "").strip().lower()
     password = data.get("password") or ""
     confirm = data.get("confirm") or ""
     phone = (data.get("phone") or "").strip()
 
-    if not (name and email and password and phone):
+    if not (username and email and password and phone):
         return jsonify({"error": "Please fill all fields."}), 400
     if not is_valid_phone(phone):
         return jsonify({"error": "Phone number must be exactly 10 digits."}), 400
@@ -29,7 +29,7 @@ def register():
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered."}), 400
 
-    trekker = User(name=name, email=email, role="Trekker", phone=phone, approved=True)
+    trekker = User(username=username, email=email, role="Trekker", phone=phone, approved=True)
     trekker.set_password(password)
     db.session.add(trekker)
     db.session.commit()
@@ -54,7 +54,7 @@ def login():
 
     session["uid"] = user.id
     session["role"] = user.role
-    session["name"] = user.name
+    session["username"] = user.username
     return jsonify({"user": user.to_dict()})
 
 

@@ -67,7 +67,7 @@ def participants():
 
     roster = Booking.query.join(Trek).filter(Trek.staff_id == session["uid"], Booking.status != "Cancelled")
     if q:
-        roster = roster.join(User, Booking.user_id == User.id).filter(User.name.ilike(f"%{q}%"))
+        roster = roster.join(User, Booking.user_id == User.id).filter(User.username.ilike(f"%{q}%"))
     roster = roster.order_by(Booking.booked_on.desc())
 
     per_page = 10
@@ -110,7 +110,7 @@ def update_profile():
     if new_phone and not is_valid_phone(new_phone):
         return jsonify({"error": "Phone number must be exactly 10 digits."}), 400
 
-    me.name = (data.get("name") or me.name).strip()
+    me.username = (data.get("username") or me.username).strip()
     me.phone = new_phone
     profile.designation = (data.get("designation") or profile.designation or "").strip()
     if data.get("experience_years") is not None:
@@ -120,6 +120,6 @@ def update_profile():
             pass
     profile.bio = data.get("bio", profile.bio)
 
-    session["name"] = me.name
+    session["username"] = me.username
     db.session.commit()
     return jsonify({"me": me.to_dict(), "profile": profile.to_dict()})

@@ -86,7 +86,7 @@ class Trek(db.Model):
             "seats_left": self.seats_left,
             "status": self.status,
             "staff_id": self.staff_id,
-            "staff_name": self.staff.name if self.staff else None,
+            "staff_username": self.staff.username if self.staff else None,
             "notes": self.notes,
             "start_date": self.start_date,
             "end_date": self.end_date,
@@ -109,7 +109,7 @@ class Booking(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "user_name": self.user.name if self.user else None,
+            "user_username": self.user.username if self.user else None,
             "user_email": self.user.email if self.user else None,
             "trek_id": self.trek_id,
             "trek_name": self.trek.name if self.trek else None,

@@ -7,7 +7,7 @@ import { api } from '../../api.js'
 
 const treks = ref([])
 const bookings = ref([])
-const name = computed(() => store.user ? store.user.name : '')
+const username = computed(() => store.user ? store.user.username : '')
 
 async function load() {
     const r = await api.trekkerDashboard()
@@ -41,7 +41,7 @@ onMounted(load)
             <i class="bi bi-backpack2 text-success fs-5"></i>
           </div>
           <div>
-            <h2 class="h4 mb-0">Welcome back, <span class="text-success">{{ name }}</span></h2>
+            <h2 class="h4 mb-0">Welcome back, <span class="text-success">{{ username }}</span></h2>
             <p class="text-muted mb-0">Ready for your next trek?</p>
           </div>
         </div>

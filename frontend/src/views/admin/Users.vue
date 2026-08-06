@@ -33,7 +33,7 @@ onMounted(load)
         <div class="card-body">
           <form @submit.prevent="search" class="row g-2 align-items-end">
             <div class="col-auto flex-grow-1">
-              <label class="form-label">Search by name</label>
+              <label class="form-label">Search by username</label>
               <input v-model="q" class="form-control">
             </div>
             <div class="col-auto">
@@ -53,6 +53,20 @@ onMounted(load)
                 <tr><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Action</th></tr>
               </thead>
               <tbody>
+                <tr v-for="u in users" :key="u.id">
+                  <td>{{ u.username }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{ u.phone }}</td>
+                  <td>
+                    <span class="badge" :class="u.blocked ? 'bg-danger' : 'bg-success'">
+                      {{ u.blocked ? 'Blocked' : 'Active' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button v-if="u.blocked" class="btn btn-sm btn-outline-success" @click="unblock(u.id)">Unblock</button>
+                    <button v-else class="btn btn-sm btn-danger" @click="block(u.id)">Block</button>
+                  </td>
+                </tr>
                 <tr v-if="!users.length">
                   <td colspan="5" class="text-center text-muted py-4">No trekkers yet</td>
                 </tr>

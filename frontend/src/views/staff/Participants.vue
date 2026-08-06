@@ -63,7 +63,7 @@ onMounted(load)
               </thead>
               <tbody>
                 <tr v-for="b in bookings" :key="b.id">
-                  <td>{{ b.user_name }}</td>
+                  <td>{{ b.user_username }}</td>
                   <td>{{ b.trek_name }}</td>
                   <td>{{ b.booked_on }}</td>
                   <td><span :class="badgeClass(b.status)">{{ b.status }}</span></td>

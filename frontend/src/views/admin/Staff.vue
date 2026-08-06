@@ -7,7 +7,7 @@ const tab = ref('active')
 const active = ref([])
 const blocked = ref([])
 const showForm = ref(false)
-const form = ref({ name: '', email: '', phone: '', password: '' })
+const form = ref({ username: '', email: '', phone: '', password: '' })
 const error = ref('')
 const q = ref('')
 
@@ -20,7 +20,7 @@ async function load() {
 async function addStaff() {
     error.value = ''
     const f = form.value
-    if (!f.name.trim() || !f.email.trim() || !f.phone.trim() || !f.password) {
+    if (!f.username.trim() || !f.email.trim() || !f.phone.trim() || !f.password) {
         alert('Please fill all fields.')
         return
     }
@@ -34,7 +34,7 @@ async function addStaff() {
     }
     try {
         await api.adminAddStaff(form.value)
-        form.value = { name: '', email: '', phone: '', password: '' }
+        form.value = { username: '', email: '', phone: '', password: '' }
         showForm.value = false
         await load()
     } catch (e) { error.value = e.message; alert(e.message) }
@@ -64,8 +64,8 @@ onMounted(load)
           <form @submit.prevent="addStaff">
             <div class="row g-3 mb-3">
               <div class="col-md-6">
-                <label class="form-label">Name</label>
-                <input v-model="form.name" class="form-control" required>
+                <label class="form-label">Username</label>
+                <input v-model="form.username" class="form-control" required>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Email</label>
@@ -93,7 +93,7 @@ onMounted(load)
           <form @submit.prevent="load" class="row g-2 align-items-end">
             <div class="col-auto flex-grow-1">
               <label class="form-label">Search</label>
-              <input v-model="q" class="form-control" placeholder="Name or email">
+              <input v-model="q" class="form-control" placeholder="Username or email">
             </div>
             <div class="col-auto">
               <button type="submit" class="btn btn-outline-success">
@@ -118,11 +118,11 @@ onMounted(load)
           <div class="table-responsive" v-if="tab === 'active'">
             <table class="table table-hover align-middle">
               <thead>
-                <tr><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr>
+                <tr><th>Username</th><th>Email</th><th>Phone</th><th>Action</th></tr>
               </thead>
               <tbody>
                 <tr v-for="s in active" :key="s.id">
-                  <td>{{ s.name }}</td>
+                  <td>{{ s.username }}</td>
                   <td>{{ s.email }}</td>
                   <td>{{ s.phone }}</td>
                   <td>
@@ -140,11 +140,11 @@ onMounted(load)
           <div class="table-responsive" v-if="tab === 'blocked'">
             <table class="table table-hover align-middle">
               <thead>
-                <tr><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr>
+                <tr><th>Username</th><th>Email</th><th>Phone</th><th>Action</th></tr>
               </thead>
               <tbody>
                 <tr v-for="s in blocked" :key="s.id">
-                  <td>{{ s.name }}</td>
+                  <td>{{ s.username }}</td>
                   <td>{{ s.email }}</td>
                   <td>{{ s.phone }}</td>
                   <td><button class="btn btn-sm btn-outline-success" @click="unblock(s.id)">Unblock</button></td>
