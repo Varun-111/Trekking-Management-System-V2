@@ -39,3 +39,7 @@ __screenshots__/
 *.timestamp-*-*.mjs
 venv
 .env
+
+# Python bytecode and cache directories
+__pycache__/
+*.py[cod]
