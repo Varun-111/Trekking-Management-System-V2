@@ -15,8 +15,6 @@ async function load() {
 }
 function goPage(p) { page.value = p; load() }
 
-// Bootstrap has no per-word badge color, so map each status string to a
-// bg-* class explicitly instead of string-concatenating like pt-badge did.
 const statusColor = {
     open: 'success', completed: 'success', approved: 'success',
     upcoming: 'warning', pending: 'warning',

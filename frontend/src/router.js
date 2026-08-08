@@ -23,7 +23,7 @@ const routes = [
     { path: '/trekker/bookings', component: () => import('./views/trekker/Bookings.vue'), meta: { role: 'Trekker' } },
     { path: '/trekker/profile', component: () => import('./views/trekker/Profile.vue'), meta: { role: 'Trekker' } },
 
-    { path: '/:pathMatch(.*)*', component: () => import('./views/NotFound.vue') },
+    { path: '/:pathMatch(.*)*', component: () => import('./views/PageNotFound.vue') },
 ]
 
 const router = createRouter({
