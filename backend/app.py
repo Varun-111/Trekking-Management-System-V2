@@ -3,7 +3,7 @@ from flask import Flask
 from extensions import db
 from config import Config
 
-
+# app.py
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
